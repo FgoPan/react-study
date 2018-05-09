@@ -4,23 +4,30 @@ import React, {
 
 class Question extends Component {
   render() {
+    let data = this.props.data.sort((a, b) => {
+      return b.count - a.count
+    })
     return (
       <div id="question">
-                  <div className="media">
+      {
+        data.map(item => {
+        return <div className="media" key={item.id}>
                     <div className="media-left">
-                      <button type="button" className="btn btn-default">
+                      <button type="button" className="btn btn-default" onClick={this.props.handleCountUp.bind(this,item)}>
                         <span className="glyphicon glyphicon-chevron-up"></span>
-                        <span className="vote-count">22</span>
+                        <span className="vote-count">{item.count}</span>
                       </button>
-                      <button type="button" className="btn btn-default">
+                      <button type="button" className="btn btn-default" onClick={this.props.handleCountDown.bind(this,item)}>
                         <span className="glyphicon glyphicon-chevron-down"></span>
                       </button>
                     </div>
                     <div className="media-body">
-                      <h4 className="media-heading">产品经理与程序员的矛盾是什么？</h4>
-                      <p>哈哈回复哈哈回复后大发看到了放大，发放的哈复读机啊，法师uu我而基金法巨轮智能女。</p>
+                      <h4 className="media-heading">{item.title}</h4>
+                      <p>{item.desc}</p>
                     </div>
                   </div>
+      })
+      }
                 </div>
     );
   }
